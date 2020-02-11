@@ -1,55 +1,47 @@
 <!DOCTYPE html>
 <html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+        <title>画布学习</title>
+        <style>
+            * {
+                margin: 0;
+                padding: 0;
+            }
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>画布学习</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-        }
+            html,
+            body {
+                width: 100%;
+                height: 100%;
+            }
 
-        html,
-        body {
-            width: 100%;
-            height: 100%;
-        }
+            #canvas {
+                background: gray;
+                display: block;
+                margin: 50px auto;
+            }
+        </style>
+    </head>
 
-        #canvas {
-            background: gray;
-            display: block;
-            margin: 50px auto;
-        }
-    </style>
-</head>
+    <body>
+        <canvas id="canvas"></canvas>
+        <div id="undo">悔棋</div>
 
-<body>
+        <script>
+            var oCanvas = document.getElementById("canvas"),
+                oUndo = document.getElementById("undo"),
+                content = oCanvas.getContext("2d"),
+                WIDTH,
+                HEIGHT;
 
-    <canvas id="canvas"></canvas>
-    <div id="undo">悔棋</div>
+            WIDTH = document.documentElement.clientWidth;
+            HEIGHT = document.documentElement.clientHeight;
 
-    <script>
-
-        var oCanvas = document.getElementById("canvas"),
-            oUndo = document.getElementById("undo"),
-            content = oCanvas.getContext('2d'),
-            WIDTH,
-            HEIGHT;
-
-        WIDTH = document.documentElement.clientWidth;
-        HEIGHT = document.documentElement.clientHeight;
-
-        oCanvas.width = 600;
-        oCanvas.height = 600;
-
-
-
-    </script>
-    <script src="./main.js"></script>
-
-</body>
-
+            oCanvas.width = 600;
+            oCanvas.height = 600;
+        </script>
+        <script src="./main.js"></script>
+    </body>
 </html>
