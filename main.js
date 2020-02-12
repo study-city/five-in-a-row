@@ -177,7 +177,8 @@ class Board {
 class Game {
     constructor(oCanvas, oBoard) {
         // TODO: 修改数据为多维数组
-        // TODO: 判断成功：分三线两向五子
+        // TODO: 判断成功：分四线两向五子
+        // TODO: this.当前用户
         this.Pieces = []; // ALL Pieces Data
         this.step = 0; // current step
         this.board = oBoard; // Board Object
@@ -257,6 +258,50 @@ class Game {
             yPosition: inCell[1],
             user: user
         });
+
+        // 判断是否胜利
+        if (this.isWin(inCell[0], inCell[1], user)) {
+            alert(`恭喜 ${user == 0 ? "黑棋" : "白棋"} 获胜`)
+            this.begin();
+        }
+
+    }
+
+    // is win
+    isWin(x, y, user) {
+        let dir = [[1, -1], [1, 0], [1, 1], [0, 1]]
+        for (let i = 0; i < 4; i++) {
+            let add = 1;
+            for (let n = 1; ; n++) {
+                let flag = true;
+                if (this.hasPieces(x + dir[i][0] * n, y + dir[i][1] * n, user)) {
+                    add++;
+                    flag = false;
+                }
+
+                if (this.hasPieces(x - dir[i][0] * n, y - dir[i][1] * n, user)) {
+                    add++;
+                    flag = false;
+                }
+
+                if (flag) {
+                    break
+                } else {
+                    if (add == 5) {
+                        console.log("win");
+                        return true
+                    }
+                }
+            }
+        }
+        return false
+    }
+
+    // 用户棋子是否存在
+    hasPieces(x, y, user) {
+        return this.Pieces.find(value => {
+            return value.xPosition == x && value.yPosition == y && value.user == user
+        });
     }
 
     // 悔棋
@@ -271,10 +316,8 @@ class Game {
 
     // 是否已存在棋子
     isInPieces(inCell) {
-        return this.Pieces.some(function (value) {
-            if (value.xPosition == inCell[0] && value.yPosition == inCell[1]) {
-                return true;
-            }
+        return this.Pieces.find(value => {
+            return value.xPosition == inCell[0] && value.yPosition == inCell[1]
         });
     }
 }
